@@ -6,6 +6,7 @@
   });
 </script>
 
+<% binding.pry %>
 <div class="weui_msg">
   <div class="weui_text_area">
     <h1 class="weui_msg_title">Hello, <%= current_user.nickname %></h1>
@@ -20,22 +21,3 @@
     </div>
   <% end %>
 </div>
-
-<% if Figaro.env.wechat_pay_mch_id %>
-  <script>
-   function wxpay() {
-     $.post('/wx_pay', function(data) {
-       WeixinJSBridge.invoke('getBrandWCPayRequest', data, function(res){
-         if(res.err_msg == "get_brand_wcpay_request:ok") {
-           alert("支付成功");
-         } else if(res.err_msg == "get_brand_wcpay_request:cancel") {
-           alert("支付取消");
-         } else {
-           alert(JSON.stringify(data));
-           alert("支付失败");
-         }
-       });
-     });
-   }
-  </script>
-<% end %>

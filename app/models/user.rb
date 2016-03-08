@@ -2,12 +2,13 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:wechat]
 
   before_validation :set_password
   validates :birthday, presence: true
 
   def self.from_omniauth(auth)
+    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.nickname = auth.info.nickname
       user.sex = auth.info.sex
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
+    binding.pry
     super.tap do |user|
       if data = session['devise.wechat_data']
         user.provider = data['provider']
