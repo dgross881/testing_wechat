@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   validates :birthday, presence: true
 
   def self.from_omniauth(auth)
-    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.nickname = auth.info.nickname
       user.sex = auth.info.sex
@@ -17,7 +16,6 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
-    binding.pry
     super.tap do |user|
       if data = session['devise.wechat_data']
         user.provider = data['provider']
