@@ -26,7 +26,6 @@ gem 'figaro'
 
 # wechat related
 gem 'wechat'
-gem 'wx_pay'
 gem 'omniauth-wechat-oauth2'
 
 # account system

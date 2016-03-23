@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:wechat]
 
   before_validation :set_password
-  validates :birthday, presence: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -32,6 +31,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def set_password
     self.password ||= Devise.friendly_token[0, 20]
   end
