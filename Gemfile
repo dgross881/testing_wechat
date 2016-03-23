@@ -23,6 +23,7 @@ group :development do
 end
 
 gem 'figaro'
+gem 'rename'
 
 # wechat related
 gem 'wechat'
